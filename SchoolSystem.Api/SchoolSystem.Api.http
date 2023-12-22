@@ -1,0 +1,21 @@
+@SchoolSystem.Api_HostAddress = http://localhost:5282
+
+GET {{SchoolSystem.Api_HostAddress}}/api/rooms
+Accept: application/json
+
+###
+
+
+GET {{SchoolSystem.Api_HostAddress}}/api/rooms/2
+Accept: application/json
+
+###
+
+POST {{SchoolSystem.Api_HostAddress}}/api/rooms
+Accept: application/json
+Content-Type: application/json
+
+{
+    "Capacity": 25,
+    "Location": "FR01"
+}
