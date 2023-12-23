@@ -1,4 +1,4 @@
-﻿namespace SchoolSystem.Contracts.Requests
+﻿namespace SchoolSystem.Contracts.Requests.Students
 {
     using System;
 

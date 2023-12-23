@@ -1,11 +1,10 @@
 ﻿namespace SchoolSystem.Api.Mappings
 {
     using SchoolSystem.Application.Entities;
-    using SchoolSystem.Contracts.Requests;
     using SchoolSystem.Contracts.Requests.Students;
     using SchoolSystem.Contracts.Responses;
 
-    public static class UsersMappingExtensions
+    public static class StudentMappingExtensions
     {
         internal static IEnumerable<GetStudentResponse> MapToRespone(this IEnumerable<StudentEntity> students)
         {

@@ -3,15 +3,14 @@
     using Microsoft.AspNetCore.Mvc;
     using SchoolSystem.Api.Mappings;
     using SchoolSystem.Application.Services.Contracts;
-    using SchoolSystem.Contracts.Requests;
     using SchoolSystem.Contracts.Requests.Students;
 
     [ApiController]
-    public class UsersController : ControllerBase
+    public class StudentController : ControllerBase
     {
         private readonly IStudentService _userService;
 
-        public UsersController(IStudentService userService)
+        public StudentController(IStudentService userService)
         {
             _userService = userService;
         }
@@ -56,7 +55,7 @@
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var deleted = await _userService.DeleteAsync(id);
-            if(deleted is null) return NotFound();
+            if(deleted is false) return NotFound();
             return Ok();
         }
     }
