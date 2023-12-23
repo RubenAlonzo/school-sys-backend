@@ -4,7 +4,7 @@
     using SchoolSystem.Contracts.Requests.Rooms;
     using SchoolSystem.Contracts.Responses;
 
-    public static class ContractsMapping
+    public static class RoomsMappingExtensions
     {
         internal static IEnumerable<GetRoomResponse> MapToResponse(this IEnumerable<RoomEntity> rooms)
         {

@@ -1,6 +1,4 @@
-﻿// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace SchoolSystem.Api.Controllers
+﻿namespace SchoolSystem.Api.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using SchoolSystem.Api.Mappings;
@@ -8,58 +6,56 @@ namespace SchoolSystem.Api.Controllers
     using SchoolSystem.Contracts.Requests.Rooms;
     using System.Threading.Tasks;
 
-    [Route("api/rooms/")]
     [ApiController]
-    public class RoomController : ControllerBase
+    public class RoomsController : ControllerBase
     {
         private readonly IRoomService _roomService;
 
-        public RoomController(IRoomService roomService)
+        public RoomsController(IRoomService roomService)
         {
             _roomService = roomService;
         }
 
-        [HttpGet]
+        [HttpGet(ApiEndpoints.Rooms.GetAll)]
         public async Task<IActionResult> GetAll()
         {
-            var rooms = await _roomService.GetRoomsAsync();
+            var rooms = await _roomService.GetAsync();
             var response = rooms.MapToResponse();
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet(ApiEndpoints.Rooms.Get)]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
-            var room = await _roomService.GetRoomAsync(id);
+            var room = await _roomService.GetByIdAsync(id);
             if (room == null) return NotFound();
             var response = room.MapToResponse();
             return Ok(response);
         }
 
-        [HttpPost]
+        [HttpPost(ApiEndpoints.Rooms.Create)]
         public async Task<IActionResult> Create([FromBody] CreateRoomRequest request)
         {
             var room = request.MapToEntity();
-            await _roomService.CreateRoomAsync(room);
+            await _roomService.CreateAsync(room);
             var response = room.MapToResponse();
-            //return CreatedAtAction(nameof(GetAsync), new { id = room.Id }, response);
             return CreatedAtAction(nameof(Get), new { id = room.Id }, response);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut(ApiEndpoints.Rooms.Update)]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateRoomRequest request)
         {
             var room = request.MapToEntity(id);
-            var updatedMovie = await _roomService.UpdateRoomAsync(room);
+            var updatedMovie = await _roomService.UpdateAsync(room);
             if (updatedMovie is null) return NotFound();
             var response = room.MapToResponse();
             return Ok(response);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete(ApiEndpoints.Rooms.Delete)]
         public async Task<IActionResult> Delete(int id)
         {
-            var deleted = await _roomService.DeleteRoomAsync(id);
+            var deleted = await _roomService.DeleteAsync(id);
             if (deleted is false) return NotFound();
             return Ok();
         }

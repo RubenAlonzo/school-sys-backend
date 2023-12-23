@@ -6,10 +6,10 @@
 
     public interface IRoomService
     {
-        Task CreateRoomAsync(RoomEntity room);
-        Task<bool> DeleteRoomAsync(int id);
-        Task<RoomEntity?> GetRoomAsync(int id);
-        Task<IEnumerable<RoomEntity>> GetRoomsAsync();
-        Task<RoomEntity?> UpdateRoomAsync(RoomEntity room);
+        Task CreateAsync(RoomEntity room);
+        Task<bool> DeleteAsync(int id);
+        Task<RoomEntity?> GetByIdAsync(int id);
+        Task<IEnumerable<RoomEntity>> GetAsync();
+        Task<RoomEntity?> UpdateAsync(RoomEntity room);
     }
 }

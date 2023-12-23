@@ -10,6 +10,7 @@
         {
             // TODO: Change to scoped after DB configured
             services.AddSingleton<IRoomService, RoomService>();
+            services.AddSingleton<IStudentService, StudentService>();
 
             return services;
         }

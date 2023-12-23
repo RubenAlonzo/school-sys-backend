@@ -19,3 +19,18 @@ Content-Type: application/json
     "Capacity": 25,
     "Location": "FR01"
 }
+
+###
+PUT {{SchoolSystem.Api_HostAddress}}/api/rooms/2
+Accept: application/json
+Content-Type: application/json
+
+{
+    "Capacity": 26,
+    "Location": "FR01"
+}
+
+###
+
+DELETE {{SchoolSystem.Api_HostAddress}}/api/rooms/2
+Accept: application/json

@@ -2,12 +2,12 @@
 {
     public class TeacherEntity
     {
-        public int Id { get; init; }
+        public int Id { get; set; }
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
         public required string Email { get; set; }
         public required string Address { get; set; }
-        public required string Subject { get; init; }
-        public string? Expertise { get; init; }
+        public required string Subject { get; set; }
+        public string? Expertise { get; set; }
     }
 }

@@ -5,7 +5,7 @@
 
     public class ScheduleEntity
     {
-        public int Id { get; init; }
+        public int Id { get; set; }
         public required DateTime StartTime { get; set; }
         public required DateTime FinishTime { get; set; }
         public required DayOfWeek Day { get; set; }
