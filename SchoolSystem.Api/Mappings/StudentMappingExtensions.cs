@@ -27,6 +27,26 @@
             };
         }
 
+        internal static IEnumerable<StudentEntity> MapToEntity(this IEnumerable<GetStudentResponse> students)
+        {
+            return students.Select(MapToEntity);
+        }
+
+        internal static StudentEntity MapToEntity(this GetStudentResponse response)
+        {
+            return new StudentEntity
+            { 
+                Address = response.Address,
+                Id = response.Id,
+                FirstName = response.FirstName,
+                LastName = response.LastName,
+                Email = response.Email,
+                Birthday = response.Birthday,
+                FatherName = response.FatherName,
+                MotherName = response.MotherName,
+            };
+        }
+
         internal static StudentEntity MapToEntity(this CreateStudentRequest request)
         {
             return new StudentEntity

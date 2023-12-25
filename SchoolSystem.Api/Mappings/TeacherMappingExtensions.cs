@@ -24,6 +24,19 @@
                 Expertise = teacher.Expertise,
             };
         }
+        internal static TeacherEntity MapToEntity(this GetTeacherResponse response)
+        {
+            return new TeacherEntity
+            {
+                Address = response.Address,
+                Id = response.Id,
+                FirstName = response.FirstName,
+                LastName = response.LastName,
+                Email = response.Email,
+                Subject = response.Subject,
+                Expertise = response.Expertise,
+            };
+        }
 
         internal static TeacherEntity MapToEntity(this CreateTeacherRequest request)
         {

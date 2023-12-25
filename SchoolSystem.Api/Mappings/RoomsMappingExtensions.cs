@@ -21,6 +21,16 @@
                 Name = room.Name,
             };
         }
+        
+        internal static RoomEntity MapToEntity(this GetRoomResponse response)
+        {
+            return new RoomEntity()
+            {
+                Id = response.Id,
+                Capacity = response.Capacity,
+                Location = response.Location,
+            };
+        }
 
         internal static RoomEntity MapToEntity(this CreateRoomRequest request)
         {

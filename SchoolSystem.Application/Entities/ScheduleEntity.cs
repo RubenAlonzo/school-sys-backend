@@ -11,6 +11,6 @@
         public required DayOfWeek Day { get; set; }
         public required RoomEntity Room { get; set; }
         public required TeacherEntity Teacher { get; set; }
-        public List<StudentEntity> Students { get; set; } = new();
+        public IEnumerable<StudentEntity> Students { get; set; } = Enumerable.Empty<StudentEntity>();
     }
 }

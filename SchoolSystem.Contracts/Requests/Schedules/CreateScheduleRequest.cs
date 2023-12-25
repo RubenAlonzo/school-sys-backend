@@ -1,11 +1,11 @@
-﻿namespace SchoolSystem.Contracts.Responses
+﻿namespace SchoolSystem.Contracts.Requests.Schedules
 {
+    using SchoolSystem.Contracts.Responses;
     using System;
     using System.Collections.Generic;
 
-    public class GetScheduleResponse
+    public class CreateScheduleRequest
     {
-        public required int Id { get; init; }
         public required DateTime StartTime { get; init; }
         public required DateTime FinishTime { get; init; }
         public required DayOfWeek Day { get; init; }

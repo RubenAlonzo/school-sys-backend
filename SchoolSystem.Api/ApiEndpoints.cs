@@ -14,6 +14,17 @@
             internal const string Update = $"{Base}/{{id}}";
             internal const string Delete = $"{Base}/{{id}}";
         }
+        
+        internal static class Schedule
+        {
+            private const string Base = $"{Root}/schedules";
+
+            internal const string Create = $"{Base}";
+            internal const string Get = $"{Base}/{{id}}";
+            internal const string GetAll = $"{Base}/";
+            internal const string Update = $"{Base}/{{id}}";
+            internal const string Delete = $"{Base}/{{id}}";
+        }
 
         internal static class Users
         {
