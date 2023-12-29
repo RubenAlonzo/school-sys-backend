@@ -9,7 +9,7 @@
             private const string Base = $"{Root}/rooms";
 
             internal const string Create = $"{Base}";
-            internal const string Get = $"{Base}/{{id}}";
+            internal const string Get = $"{Base}/{{idOrName}}";
             internal const string GetAll = $"{Base}/";
             internal const string Update = $"{Base}/{{id}}";
             internal const string Delete = $"{Base}/{{id}}";

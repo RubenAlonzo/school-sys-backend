@@ -30,6 +30,11 @@
             return Task.FromResult(_rooms.FirstOrDefault(x => x.Id == id));
         }
 
+        public Task<RoomEntity?> GetByNameAsync(string name)
+        {
+            return Task.FromResult(_rooms.FirstOrDefault(x => x.Name == name));
+        }
+
         public Task<IEnumerable<RoomEntity>> GetAsync()
         {
             return Task.FromResult(_rooms.AsEnumerable());

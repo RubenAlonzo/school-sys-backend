@@ -25,9 +25,11 @@
         }
 
         [HttpGet(ApiEndpoints.Rooms.Get)]
-        public async Task<IActionResult> Get([FromRoute] int id)
+        public async Task<IActionResult> Get([FromRoute] string idOrName)
         {
-            var room = await _roomService.GetByIdAsync(id);
+            var room = int.TryParse(idOrName, out var roomId) ?
+                await _roomService.GetByIdAsync(roomId) 
+                : await _roomService.GetByNameAsync(idOrName);
             if (room == null) return NotFound();
             var response = room.MapToResponse();
             return Ok(response);
@@ -39,7 +41,7 @@
             var room = request.MapToEntity();
             await _roomService.CreateAsync(room);
             var response = room.MapToResponse();
-            return CreatedAtAction(nameof(Get), new { id = room.Id }, response);
+            return CreatedAtAction(nameof(Get), new { idOrName = room.Id }, response);
         }
 
         [HttpPut(ApiEndpoints.Rooms.Update)]

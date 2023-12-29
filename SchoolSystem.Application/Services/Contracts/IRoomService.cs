@@ -11,5 +11,6 @@
         Task<RoomEntity?> GetByIdAsync(int id);
         Task<IEnumerable<RoomEntity>> GetAsync();
         Task<RoomEntity?> UpdateAsync(RoomEntity room);
+        Task<RoomEntity?> GetByNameAsync(string name);
     }
 }
