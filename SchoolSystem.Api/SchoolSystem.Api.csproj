@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SchoolSystem.Application\SchoolSystem.Application.csproj" />
     <ProjectReference Include="..\SchoolSystem.Contracts\SchoolSystem.Contracts.csproj" />
+    <ProjectReference Include="..\SchoolSystem.Persistence\SchoolSystem.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
