@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace SchoolSystem.Persistence
+﻿namespace SchoolSystem.Persistence
 {
     using Microsoft.EntityFrameworkCore;
     using SchoolSystem.Application.Entities;

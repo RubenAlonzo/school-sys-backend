@@ -8,10 +8,6 @@
 
     public class RoomService : IRoomService
     {
-
-
-
-
         private List<RoomEntity> _rooms = new List<RoomEntity>();
         private int _index = 1;
         public Task CreateAsync(RoomEntity room)
