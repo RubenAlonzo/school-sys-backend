@@ -2,51 +2,57 @@
 {
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Domain.Entities;
+    using SchoolSystem.Persistence.Repositories.Contracts;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     public class RoomService : IRoomService
     {
-        private List<RoomEntity> _rooms = new List<RoomEntity>();
-        private int _index = 1;
-        public Task CreateAsync(RoomEntity room)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public RoomService(IUnitOfWork unitOfWork)
         {
-            room.Id = _index++; 
-            _rooms.Add(room);
-            return Task.CompletedTask;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task CreateAsync(RoomEntity room)
         {
-            var room = _rooms.FirstOrDefault(x => x.Id == id);
-            if (room == null) return Task.FromResult(false);
-            _rooms.Remove(room);
-            return Task.FromResult(true);
+            _unitOfWork.Rooms.Add(room);
+            await _unitOfWork.SaveChangesAsync();
         }
 
-        public Task<RoomEntity?> GetByIdAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            return Task.FromResult(_rooms.FirstOrDefault(x => x.Id == id));
+            var room = _unitOfWork.Rooms.FirstOrDefault(x => x.Id == id);
+            if (room == null) return false;
+            _unitOfWork.Rooms.Remove(room);
+
+            return (await _unitOfWork.SaveChangesAsync()) > 0;
         }
 
-        public Task<RoomEntity?> GetByNameAsync(string name)
+        public RoomEntity? GetById(int id)
         {
-            return Task.FromResult(_rooms.FirstOrDefault(x => x.Name == name));
+            return _unitOfWork.Rooms.FirstOrDefault(x => x.Id == id);
         }
 
-        public Task<IEnumerable<RoomEntity>> GetAsync()
+        public RoomEntity? GetByName(string name)
         {
-            return Task.FromResult(_rooms.AsEnumerable());
+            return _unitOfWork.Rooms.FirstOrDefault(x => x.Name == name);
         }
 
-        public Task<RoomEntity?> UpdateAsync(RoomEntity room)
+        public IEnumerable<RoomEntity> GetAll()
         {
-            var currentRoom = _rooms.FirstOrDefault(x => x.Id == room.Id);
-            if (currentRoom is null) return Task.FromResult<RoomEntity?>(default);
-            _rooms.Remove(currentRoom);
-            _rooms.Add(room);
-            return Task.FromResult<RoomEntity?>(room);
+            return _unitOfWork.Rooms.GetAll();
+        }
+
+        public async Task<RoomEntity?> UpdateAsync(RoomEntity room)
+        {
+            var currentRoom = _unitOfWork.Rooms.FirstOrDefault(x => x.Id == room.Id);
+            if (currentRoom is null) return null;
+            _unitOfWork.Rooms.Remove(currentRoom);
+            _unitOfWork.Rooms.Add(room);
+            await _unitOfWork.SaveChangesAsync();
+            return room;
         }
     }
 }

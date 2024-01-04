@@ -9,10 +9,10 @@
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             // TODO: Change to scoped after DB configured
-            services.AddSingleton<IRoomService, RoomService>();
-            services.AddSingleton<IStudentService, StudentService>();
-            services.AddSingleton<ITeacherService, TeacherService>();
-            services.AddSingleton<IScheduleService, ScheduleService>();
+            services.AddTransient<IRoomService, RoomService>();
+            services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<ITeacherService, TeacherService>();
+            services.AddTransient<IScheduleService, ScheduleService>();
 
             return services;
         }

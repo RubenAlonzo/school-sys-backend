@@ -8,9 +8,9 @@
     {
         Task CreateAsync(RoomEntity room);
         Task<bool> DeleteAsync(int id);
-        Task<RoomEntity?> GetByIdAsync(int id);
-        Task<IEnumerable<RoomEntity>> GetAsync();
+        RoomEntity? GetById(int id);
+        RoomEntity? GetByName(string name);
+        IEnumerable<RoomEntity> GetAll();
         Task<RoomEntity?> UpdateAsync(RoomEntity room);
-        Task<RoomEntity?> GetByNameAsync(string name);
     }
 }

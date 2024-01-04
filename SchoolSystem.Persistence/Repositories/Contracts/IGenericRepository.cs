@@ -9,6 +9,7 @@
         T? GetById(int id);
         IEnumerable<T> GetAll();
         IEnumerable<T> Find(Expression<Func<T, bool>> expression);
+        T? FirstOrDefault(Func<T, bool> predicate);
         void Add(T entity);
         void AddRange(IEnumerable<T> entities);
         void Remove(T entity);

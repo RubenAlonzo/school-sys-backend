@@ -17,19 +17,19 @@
         }
 
         [HttpGet(ApiEndpoints.Rooms.GetAll)]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            var rooms = await _roomService.GetAsync();
+            var rooms = _roomService.GetAll();
             var response = rooms.MapToResponse();
             return Ok(response);
         }
 
         [HttpGet(ApiEndpoints.Rooms.Get)]
-        public async Task<IActionResult> Get([FromRoute] string idOrName)
+        public IActionResult Get([FromRoute] string idOrName)
         {
             var room = int.TryParse(idOrName, out var roomId) ?
-                await _roomService.GetByIdAsync(roomId) 
-                : await _roomService.GetByNameAsync(idOrName);
+                _roomService.GetById(roomId) 
+                : _roomService.GetByName(idOrName);
             if (room == null) return NotFound();
             var response = room.MapToResponse();
             return Ok(response);

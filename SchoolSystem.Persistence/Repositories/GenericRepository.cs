@@ -1,5 +1,6 @@
 ﻿namespace SchoolSystem.Persistence.Repositories
 {
+    using Microsoft.EntityFrameworkCore;
     using SchoolSystem.Persistence.Repositories.Contracts;
     using System;
     using System.Collections.Generic;
@@ -28,6 +29,11 @@
         public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
         {
             return _context.Set<T>().Where(expression);
+        }
+
+        public T? FirstOrDefault(Func<T, bool> predicate)
+        {
+            return _context.Set<T>().FirstOrDefault(predicate);
         }
 
         public IEnumerable<T> GetAll()

@@ -11,7 +11,7 @@ Accept: application/json
 
 ###
 
-GET {{SchoolSystem.Api_HostAddress}}/api/rooms/xyz-1
+GET {{SchoolSystem.Api_HostAddress}}/api/rooms/xyz-3
 Accept: application/json
 
 ###
