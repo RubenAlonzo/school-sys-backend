@@ -1,6 +1,6 @@
 ﻿namespace SchoolSystem.Persistence.Repositories
 {
-    using SchoolSystem.Application.Entities;
+    using SchoolSystem.Domain.Entities;
     using SchoolSystem.Persistence.Repositories.Contracts;
 
     internal class RoomRepository : GenericRepository<RoomEntity>, IRoomRepository

@@ -1,7 +1,7 @@
 ﻿namespace SchoolSystem.Application.Services
 {
-    using SchoolSystem.Application.Entities;
     using SchoolSystem.Application.Services.Contracts;
+    using SchoolSystem.Domain.Entities;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;

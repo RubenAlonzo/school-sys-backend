@@ -1,6 +1,6 @@
 ﻿namespace SchoolSystem.Persistence.Repositories.Contracts
 {
-    using SchoolSystem.Application.Entities;
+    using SchoolSystem.Domain.Entities;
 
     public interface IRoomRepository : IGenericRepository<RoomEntity>
     {

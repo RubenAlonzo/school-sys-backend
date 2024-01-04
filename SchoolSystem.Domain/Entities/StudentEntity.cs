@@ -1,4 +1,4 @@
-﻿namespace SchoolSystem.Application.Entities
+﻿namespace SchoolSystem.Domain.Entities
 {
     using System;
 

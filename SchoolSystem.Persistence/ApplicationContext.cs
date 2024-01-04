@@ -1,7 +1,7 @@
 ﻿namespace SchoolSystem.Persistence
 {
     using Microsoft.EntityFrameworkCore;
-    using SchoolSystem.Application.Entities;
+    using SchoolSystem.Domain.Entities;
 
     public class ApplicationContext : DbContext
     {

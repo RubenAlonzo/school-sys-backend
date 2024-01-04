@@ -1,6 +1,6 @@
 ﻿namespace SchoolSystem.Application.Services.Contracts
 {
-    using SchoolSystem.Application.Entities;
+    using SchoolSystem.Domain.Entities;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 

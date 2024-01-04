@@ -1,8 +1,8 @@
 ﻿namespace SchoolSystem.Api.Mappings
 {
-    using SchoolSystem.Application.Entities;
     using SchoolSystem.Contracts.Requests.Students;
     using SchoolSystem.Contracts.Responses;
+    using SchoolSystem.Domain.Entities;
 
     public static class StudentMappingExtensions
     {
