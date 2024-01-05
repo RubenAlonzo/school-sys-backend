@@ -37,7 +37,7 @@
 
         public StudentEntity? GetById(int id)
         {
-            return _unitOfWork.Students.FirstOrDefault(x => x.Id == id));
+            return _unitOfWork.Students.FirstOrDefault(x => x.Id == id);
         }
 
         public async Task<StudentEntity?> UpdateAsync(StudentEntity student)

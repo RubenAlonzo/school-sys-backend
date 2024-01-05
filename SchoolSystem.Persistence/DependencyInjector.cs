@@ -18,6 +18,7 @@
             services.AddTransient<IRoomRepository, RoomRepository>();
             services.AddTransient<IScheduleRepository, ScheduleRepository>();
             services.AddTransient<IStudentRepository, StudentRepository>();
+            services.AddTransient<ITeacherRepository, TeacherRepository>();
             
             return services;
         }

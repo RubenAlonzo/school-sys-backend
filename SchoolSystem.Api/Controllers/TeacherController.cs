@@ -16,17 +16,17 @@
         }
 
         [HttpGet(ApiEndpoints.Users.Teachers.GetAll)]
-        public async Task<IActionResult> GetAllTeachers()
+        public IActionResult GetAllTeachers()
         {
-            var teachers = await _teacherService.GetAsync();
+            var teachers = _teacherService.GetAll();
             var response = teachers.MapToRespone();
             return Ok(response);
         }
 
         [HttpGet(ApiEndpoints.Users.Teachers.Get)]
-        public async Task<IActionResult> Get(int id)
+        public IActionResult Get(int id)
         {
-            var teacher = await _teacherService.GetByIdAsync(id);
+            var teacher = _teacherService.GetById(id);
             if (teacher is null) return NotFound();
             var response = teacher.MapToRespone();
             return Ok(response);

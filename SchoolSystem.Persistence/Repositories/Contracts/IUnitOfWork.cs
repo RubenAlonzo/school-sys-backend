@@ -8,6 +8,7 @@
         public IRoomRepository Rooms { get; }
         public IScheduleRepository Schedules { get; }
         public IStudentRepository Students { get; }
+        public ITeacherRepository Teachers { get; }
 
         Task<int> SaveChangesAsync();
         int SaveChanges();

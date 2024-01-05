@@ -2,46 +2,51 @@
 {
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Domain.Entities;
+    using SchoolSystem.Persistence.Repositories.Contracts;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     internal class TeacherService : ITeacherService
     {
-        private static readonly List<TeacherEntity> _students = new List<TeacherEntity>();
-        private int _index = 1;
-        public Task CreateAsync(TeacherEntity student)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public TeacherService(IUnitOfWork unitOfWork)
         {
-            student.Id = _index++;
-            _students.Add(student);
-            return Task.CompletedTask;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task CreateAsync(TeacherEntity student)
         {
-            var student = _students.FirstOrDefault(x => x.Id == id);
-            if (student is null) return Task.FromResult(false);
-            _students.Remove(student);
-            return Task.FromResult(true);
+            _unitOfWork.Teachers.Add(student);
+            await _unitOfWork.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<TeacherEntity>> GetAsync()
+        public async Task<bool> DeleteAsync(int id)
         {
-            return Task.FromResult(_students.AsEnumerable());
+            var student = _unitOfWork.Teachers.FirstOrDefault(x => x.Id == id);
+            if (student is null) return false;
+            _unitOfWork.Teachers.Remove(student);
+            return (await _unitOfWork.SaveChangesAsync()) > 0;
         }
 
-        public Task<TeacherEntity?> GetByIdAsync(int id)
+        public IEnumerable<TeacherEntity> GetAll()
         {
-            return Task.FromResult(_students.FirstOrDefault(x => x.Id == id));
+            return _unitOfWork.Teachers.GetAll();
         }
 
-        public Task<TeacherEntity?> UpdateAsync(TeacherEntity student)
+        public TeacherEntity? GetById(int id)
         {
-            var currentStudent = _students.FirstOrDefault(x => x.Id == student.Id);
-            if (currentStudent is null) return Task.FromResult<TeacherEntity?>(null);
-            _students.Remove(currentStudent);
-            _students.Add(student);
-            return Task.FromResult<TeacherEntity?>(student);
+            return _unitOfWork.Teachers.FirstOrDefault(x => x.Id == id);
+        }
+
+        public async Task<TeacherEntity?> UpdateAsync(TeacherEntity student)
+        {
+            var currentStudent = _unitOfWork.Teachers.FirstOrDefault(x => x.Id == student.Id);
+            if (currentStudent is null) return null;
+            _unitOfWork.Teachers.Remove(currentStudent);
+            _unitOfWork.Teachers.Add(student);
+            await _unitOfWork.SaveChangesAsync();
+            return student;
         }
     }
 }

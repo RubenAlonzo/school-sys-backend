@@ -10,6 +10,7 @@
         public IRoomRepository Rooms { get; }
         public IScheduleRepository Schedules { get; }
         public IStudentRepository Students { get; }
+        public ITeacherRepository Teachers { get; }
 
         public UnitOfWork(ApplicationContext context)
         {
@@ -17,6 +18,7 @@
             Rooms = new RoomRepository(context);
             Schedules = new ScheduleRepository(context);
             Students = new StudentRepository(context);
+            Teachers = new TeacherRepository(context);
         }
 
         public int SaveChanges()
