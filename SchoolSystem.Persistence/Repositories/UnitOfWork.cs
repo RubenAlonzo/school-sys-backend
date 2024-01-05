@@ -9,12 +9,14 @@
 
         public IRoomRepository Rooms { get; }
         public IScheduleRepository Schedules { get; }
+        public IStudentRepository Students { get; }
 
         public UnitOfWork(ApplicationContext context)
         {
             _context = context;
             Rooms = new RoomRepository(context);
             Schedules = new ScheduleRepository(context);
+            Students = new StudentRepository(context);
         }
 
         public int SaveChanges()

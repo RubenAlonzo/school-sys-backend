@@ -16,17 +16,17 @@
         }
 
         [HttpGet(ApiEndpoints.Users.Students.GetAll)]
-        public async Task<IActionResult> GetAllStudents()
+        public IActionResult GetAllStudents()
         {
-            var students = await _userService.GetAsync();
+            var students = _userService.GetAll();
             var response = students.MapToRespone();
             return Ok(response);
         }
 
         [HttpGet(ApiEndpoints.Users.Students.Get)]
-        public async Task<IActionResult> Get(int id)
+        public IActionResult Get(int id)
         {
-            var student = await _userService.GetByIdAsync(id);
+            var student = _userService.GetById(id);
             if (student is null) return NotFound();
             var response = student.MapToRespone();
             return Ok(response);

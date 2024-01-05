@@ -1,10 +1,8 @@
 ﻿namespace SchoolSystem.Api.Controllers
 {
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using SchoolSystem.Api.Mappings;
     using SchoolSystem.Application.Services.Contracts;
-    using SchoolSystem.Contracts.Requests.Rooms;
     using SchoolSystem.Contracts.Requests.Schedules;
 
     [ApiController]
@@ -18,17 +16,17 @@
         }
 
         [HttpGet(ApiEndpoints.Schedule.GetAll)]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            var schedules = await _scheduleService.GetAll();
+            var schedules = _scheduleService.GetAll();
             var response = schedules.MapToResponse();
             return Ok(response);
         }
 
         [HttpGet(ApiEndpoints.Schedule.Get)]
-        public async Task<IActionResult> Get(int id)
+        public IActionResult Get(int id)
         {
-            var schedule = await _scheduleService.GetById(id);
+            var schedule = _scheduleService.GetById(id);
             if (schedule is null) return NotFound();
             var response = schedule.MapToResponse();
             return Ok(response);
@@ -54,7 +52,7 @@
             var response = updatedSchedule.MapToResponse();
             return Ok(response);
         }
-        
+
         [HttpDelete(ApiEndpoints.Schedule.Delete)]
         public async Task<IActionResult> Delete(int id)
         {

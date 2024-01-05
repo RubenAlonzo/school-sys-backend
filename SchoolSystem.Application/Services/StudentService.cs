@@ -2,46 +2,52 @@
 {
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Domain.Entities;
+    using SchoolSystem.Persistence.Repositories.Contracts;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     internal class StudentService : IStudentService
     {
-        private static readonly List<StudentEntity> _students = new List<StudentEntity>();
-        private int _index = 1;
-        public Task CreateAsync(StudentEntity student)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public StudentService(IUnitOfWork unitOfWork)
         {
-            student.Id = _index++;
-            _students.Add(student);
-            return Task.CompletedTask;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task CreateAsync(StudentEntity student)
         {
-            var student = _students.FirstOrDefault(x => x.Id == id);
-            if (student is null) return Task.FromResult(false);
-            _students.Remove(student);
-            return Task.FromResult(true);
+            _unitOfWork.Students.Add(student);
+            await _unitOfWork.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<StudentEntity>> GetAsync()
+        public async Task<bool> DeleteAsync(int id)
         {
-            return Task.FromResult(_students.AsEnumerable());
+            var student = _unitOfWork.Students.FirstOrDefault(x => x.Id == id);
+            if (student is null) return false;
+            _unitOfWork.Students.Remove(student);
+
+            return (await _unitOfWork.SaveChangesAsync()) > 0;
         }
 
-        public Task<StudentEntity?> GetByIdAsync(int id)
+        public IEnumerable<StudentEntity> GetAll()
         {
-            return Task.FromResult(_students.FirstOrDefault(x => x.Id == id));
+            return _unitOfWork.Students.GetAll();
         }
 
-        public Task<StudentEntity?> UpdateAsync(StudentEntity student)
+        public StudentEntity? GetById(int id)
         {
-            var currentStudent = _students.FirstOrDefault(x => x.Id == student.Id);
-            if (currentStudent is null) return Task.FromResult<StudentEntity?>(null);
-            _students.Remove(currentStudent);
-            _students.Add(student);
-            return Task.FromResult<StudentEntity?>(student);
+            return _unitOfWork.Students.FirstOrDefault(x => x.Id == id));
+        }
+
+        public async Task<StudentEntity?> UpdateAsync(StudentEntity student)
+        {
+            var currentStudent = _unitOfWork.Students.FirstOrDefault(x => x.Id == student.Id);
+            if (currentStudent is null) return null;
+            _unitOfWork.Students.Remove(currentStudent);
+            _unitOfWork.Students.Add(student);
+            await _unitOfWork.SaveChangesAsync();
+            return student;
         }
     }
 }
