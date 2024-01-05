@@ -8,8 +8,8 @@
     {
         Task CreateAsync(ScheduleEntity schedule);
         Task<bool> DeleteAsync(int id);
-        Task<IEnumerable<ScheduleEntity>> GetAsync();
-        Task<ScheduleEntity?> GetByIdAsync(int id);
+        IEnumerable<ScheduleEntity> GetAll();
+        ScheduleEntity? GetById(int id);
         Task<ScheduleEntity?> UpdateAsync(ScheduleEntity schedule);
     }
 }

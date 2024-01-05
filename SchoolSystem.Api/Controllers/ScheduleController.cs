@@ -20,7 +20,7 @@
         [HttpGet(ApiEndpoints.Schedule.GetAll)]
         public async Task<IActionResult> GetAll()
         {
-            var schedules = await _scheduleService.GetAsync();
+            var schedules = await _scheduleService.GetAll();
             var response = schedules.MapToResponse();
             return Ok(response);
         }
@@ -28,7 +28,7 @@
         [HttpGet(ApiEndpoints.Schedule.Get)]
         public async Task<IActionResult> Get(int id)
         {
-            var schedule = await _scheduleService.GetByIdAsync(id);
+            var schedule = await _scheduleService.GetById(id);
             if (schedule is null) return NotFound();
             var response = schedule.MapToResponse();
             return Ok(response);

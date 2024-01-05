@@ -6,6 +6,7 @@
     public interface IUnitOfWork : IDisposable, IAsyncDisposable
     {
         public IRoomRepository Rooms { get; }
+        public IScheduleRepository Schedules { get; }
 
         Task<int> SaveChangesAsync();
         int SaveChanges();

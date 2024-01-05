@@ -2,48 +2,52 @@
 {
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Domain.Entities;
+    using SchoolSystem.Persistence.Repositories.Contracts;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     internal class ScheduleService : IScheduleService
     {
-        private readonly List<ScheduleEntity> _schedules = new();
-        private int _index = 1;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public Task CreateAsync(ScheduleEntity schedule)
+        public ScheduleService(IUnitOfWork unitOfWork)
         {
-            schedule.Id = _index++;
-            _schedules.Add(schedule);
-            return Task.CompletedTask;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task CreateAsync(ScheduleEntity schedule)
         {
-            var schedule = _schedules.FirstOrDefault(x => x.Id == id);
-            if (schedule is null) return Task.FromResult(false);
-            _schedules.Remove(schedule);
-            return Task.FromResult(true);
+            _unitOfWork.Schedules.Add(schedule);
+            await _unitOfWork.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<ScheduleEntity>> GetAsync()
+        public async Task<bool> DeleteAsync(int id)
         {
-            return Task.FromResult(_schedules.AsEnumerable());
+            var schedule = _unitOfWork.Schedules.FirstOrDefault(x => x.Id == id);
+            if (schedule is null) return false;
+            _unitOfWork.Schedules.Remove(schedule);
+            return (await _unitOfWork.SaveChangesAsync()) > 0;
         }
 
-        public Task<ScheduleEntity?> GetByIdAsync(int id)
+        public IEnumerable<ScheduleEntity> GetAll()
         {
-            var schedule = _schedules.FirstOrDefault(x => x.Id == id);
-            return Task.FromResult(schedule);
+            return _unitOfWork.Schedules.GetAll();
         }
 
-        public Task<ScheduleEntity?> UpdateAsync(ScheduleEntity schedule)
+        public ScheduleEntity? GetById(int id)
         {
-            var currentSchedule = _schedules.FirstOrDefault(x => x.Id == schedule.Id);
-            if (currentSchedule is null) return Task.FromResult<ScheduleEntity?>(null);
-            _schedules.Remove(currentSchedule);
-            _schedules.Add(schedule);
-            return Task.FromResult<ScheduleEntity?>(schedule);
+            var schedule = _unitOfWork.Schedules.FirstOrDefault(x => x.Id == id);
+            return schedule;
+        }
+
+        public async Task<ScheduleEntity?> UpdateAsync(ScheduleEntity schedule)
+        {
+            var currentSchedule = _unitOfWork.Schedules.FirstOrDefault(x => x.Id == schedule.Id);
+            if (currentSchedule is null) return null;
+            _unitOfWork.Schedules.Remove(currentSchedule);
+            _unitOfWork.Schedules.Add(schedule);
+            await _unitOfWork.SaveChangesAsync();
+            return schedule;
         }
     }
 }
