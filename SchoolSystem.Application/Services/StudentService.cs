@@ -1,5 +1,6 @@
 ﻿namespace SchoolSystem.Application.Services
 {
+    using FluentValidation;
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Domain.Entities;
     using SchoolSystem.Persistence.Repositories.Contracts;
@@ -9,14 +10,16 @@
     internal class StudentService : IStudentService
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public StudentService(IUnitOfWork unitOfWork)
+        private readonly IValidator<StudentEntity> _validator;
+        public StudentService(IUnitOfWork unitOfWork, IValidator<StudentEntity> validator)
         {
             _unitOfWork = unitOfWork;
+            _validator = validator;
         }
 
         public async Task CreateAsync(StudentEntity student)
         {
+            _validator.ValidateAndThrow(student);
             _unitOfWork.Students.Add(student);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -42,6 +45,7 @@
 
         public async Task<StudentEntity?> UpdateAsync(StudentEntity student)
         {
+            _validator.ValidateAndThrow(student);
             var currentStudent = _unitOfWork.Students.FirstOrDefault(x => x.Id == student.Id);
             if (currentStudent is null) return null;
             _unitOfWork.Students.Remove(currentStudent);

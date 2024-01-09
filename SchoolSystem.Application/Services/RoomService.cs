@@ -1,5 +1,6 @@
 ﻿namespace SchoolSystem.Application.Services
 {
+    using FluentValidation;
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Domain.Entities;
     using SchoolSystem.Persistence.Repositories.Contracts;
@@ -9,14 +10,17 @@
     public class RoomService : IRoomService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly  IValidator<RoomEntity> _validator;
 
-        public RoomService(IUnitOfWork unitOfWork)
+        public RoomService(IUnitOfWork unitOfWork, IValidator<RoomEntity> validator)
         {
             _unitOfWork = unitOfWork;
+            _validator = validator;
         }
 
         public async Task CreateAsync(RoomEntity room)
         {
+            _validator.ValidateAndThrow(room);
             _unitOfWork.Rooms.Add(room);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -47,6 +51,7 @@
 
         public async Task<RoomEntity?> UpdateAsync(RoomEntity room)
         {
+            _validator.ValidateAndThrow(room);
             var currentRoom = _unitOfWork.Rooms.FirstOrDefault(x => x.Id == room.Id);
             if (currentRoom is null) return null;
             _unitOfWork.Rooms.Remove(currentRoom);
