@@ -73,7 +73,7 @@ Content-Type: application/json
 }
 
 ###
-PUT {{SchoolSystem.Api_HostAddress}}/api/users/students/2
+PUT {{SchoolSystem.Api_HostAddress}}/api/users/students/4
 Accept: application/json
 Content-Type: application/json
 
@@ -90,4 +90,54 @@ Content-Type: application/json
 ###
 
 DELETE {{SchoolSystem.Api_HostAddress}}/api/users/students/3
+Accept: application/json
+
+    
+##############
+
+
+GET {{SchoolSystem.Api_HostAddress}}/api/users/teachers
+Accept: application/json
+
+###
+
+
+GET {{SchoolSystem.Api_HostAddress}}/api/users/teachers/2
+Accept: application/json
+
+###
+
+GET {{SchoolSystem.Api_HostAddress}}/api/users/teachers/MAT-2024-2
+Accept: application/json
+
+###
+
+POST {{SchoolSystem.Api_HostAddress}}/api/users/teachers
+Accept: application/json
+Content-Type: application/json
+
+{
+    "firstName": "Mary",
+    "lastName": "Smither",
+    "email": ",ary@email.com",
+    "address": "calle B",
+    "subject": "Maths"
+}
+
+###
+PUT {{SchoolSystem.Api_HostAddress}}/api/users/teachers/1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "firstName": "Richard",
+    "lastName": "Kidder",
+    "email": "rich@email.com",
+    "address": "calle B2",
+    "subject": "Maths"
+}
+
+###
+
+DELETE {{SchoolSystem.Api_HostAddress}}/api/users/teachers/3
 Accept: application/json

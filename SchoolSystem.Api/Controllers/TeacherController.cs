@@ -41,7 +41,7 @@
             return CreatedAtAction(nameof(Get), new { id = response.Id }, response);
         }
 
-        [HttpPost(ApiEndpoints.Users.Teachers.Update)]
+        [HttpPut(ApiEndpoints.Users.Teachers.Update)]
         public async Task<IActionResult> Update([FromRoute] int id, UpdateTeacherRequest  
             request)
         {
@@ -52,7 +52,7 @@
             return Ok(response);
         }
 
-        [HttpPost(ApiEndpoints.Users.Teachers.Delete)]
+        [HttpDelete(ApiEndpoints.Users.Teachers.Delete)]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var deleted = await _teacherService.DeleteAsync(id);
