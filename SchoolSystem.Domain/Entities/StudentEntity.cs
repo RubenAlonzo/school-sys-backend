@@ -11,6 +11,7 @@
         public required string Address { get; set; }
         public string RegistrationNumber => $"MAT-{DateTime.Now.Year}-{Id}";
         public required DateTime Birthday { get; set; }
+        public IEnumerable<ScheduleEntity>? Schedule { get; set; }
         public string? FatherName { get; set; }
         public string? MotherName { get; set; }
     }

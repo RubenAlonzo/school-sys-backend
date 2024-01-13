@@ -6,5 +6,6 @@
         public int Capacity { get; set; }
         public required string Location { get; set; }
         public string Name => $"xyz-{Id}";
+        public IEnumerable<ScheduleEntity>? Schedule { get; set; }
     }
 }

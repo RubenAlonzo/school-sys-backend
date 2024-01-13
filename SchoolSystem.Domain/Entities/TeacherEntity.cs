@@ -8,6 +8,7 @@
         public required string Email { get; set; }
         public required string Address { get; set; }
         public required string Subject { get; set; }
+        public IEnumerable<ScheduleEntity>? Schedule { get; set; }
         public string? Expertise { get; set; }
     }
 }
