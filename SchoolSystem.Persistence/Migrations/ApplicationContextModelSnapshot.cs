@@ -34,7 +34,7 @@ namespace SchoolSystem.Persistence.Migrations
 
                     b.HasIndex("StudentsId");
 
-                    b.ToTable("ScheduleEntityStudentEntity");
+                    b.ToTable("ScheduleEntityStudentEntity", (string)null);
                 });
 
             modelBuilder.Entity("SchoolSystem.Domain.Entities.RoomEntity", b =>
@@ -54,7 +54,7 @@ namespace SchoolSystem.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", (string)null);
                 });
 
             modelBuilder.Entity("SchoolSystem.Domain.Entities.ScheduleEntity", b =>
@@ -86,7 +86,7 @@ namespace SchoolSystem.Persistence.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("Schedules");
+                    b.ToTable("Schedules", (string)null);
                 });
 
             modelBuilder.Entity("SchoolSystem.Domain.Entities.StudentEntity", b =>
@@ -124,7 +124,7 @@ namespace SchoolSystem.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("SchoolSystem.Domain.Entities.TeacherEntity", b =>
@@ -160,7 +160,7 @@ namespace SchoolSystem.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teachers");
+                    b.ToTable("Teachers", (string)null);
                 });
 
             modelBuilder.Entity("ScheduleEntityStudentEntity", b =>

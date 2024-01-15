@@ -9,8 +9,10 @@
         public required TimeOnly StartTime { get; set; }
         public required TimeOnly FinishTime { get; set; }
         public required DayOfWeek Day { get; set; }
-        public required RoomEntity Room { get; set; }
-        public required TeacherEntity Teacher { get; set; }
+        public int RoomId { get; set; }
+        public RoomEntity? Room { get; set; }
+        public int TeacherId { get; set; }
+        public TeacherEntity? Teacher { get; set; }
         public IEnumerable<StudentEntity> Students { get; set; } = Enumerable.Empty<StudentEntity>();
     }
 }

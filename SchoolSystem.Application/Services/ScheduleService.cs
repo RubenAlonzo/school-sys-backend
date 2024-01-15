@@ -1,5 +1,6 @@
 ﻿namespace SchoolSystem.Application.Services
 {
+    using FluentValidation;
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Domain.Entities;
     using SchoolSystem.Persistence.Repositories.Contracts;
@@ -9,14 +10,17 @@
     internal class ScheduleService : IScheduleService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IValidator<ScheduleEntity> _validator;
 
-        public ScheduleService(IUnitOfWork unitOfWork)
+        public ScheduleService(IUnitOfWork unitOfWork, IValidator<ScheduleEntity> validator)
         {
             _unitOfWork = unitOfWork;
+            _validator = validator;
         }
 
         public async Task CreateAsync(ScheduleEntity schedule)
         {
+            _validator.ValidateAndThrow(schedule);
             _unitOfWork.Schedules.Add(schedule);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -42,6 +46,7 @@
 
         public async Task<ScheduleEntity?> UpdateAsync(ScheduleEntity schedule)
         {
+            _validator.ValidateAndThrow(schedule);
             var currentSchedule = _unitOfWork.Schedules.FirstOrDefault(x => x.Id == schedule.Id);
             if (currentSchedule is null) return null;
             _unitOfWork.Schedules.Remove(currentSchedule);

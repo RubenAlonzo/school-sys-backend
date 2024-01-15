@@ -19,9 +19,9 @@
                 Day = schedule.Day,
                 StartTime = schedule.StartTime,
                 FinishTime = schedule.FinishTime,
-                Room = schedule.Room.MapToResponse(),
-                Teacher = schedule.Teacher.MapToRespone(),
-                Students = schedule.Students.MapToRespone(),
+                RoomId = schedule.RoomId,
+                TeacherId = schedule.TeacherId,
+                StudentIds = schedule.Students.Select(x => x.Id),
             };
         }
 
@@ -32,9 +32,8 @@
                 Day = request.Day,
                 StartTime = request.StartTime,
                 FinishTime = request.FinishTime,
-                Room = request.Room.MapToEntity(),
-                Teacher = request.Teacher.MapToEntity(),
-                Students = request.Students.MapToEntity()
+                RoomId = request.RoomId,
+                TeacherId = request.TeacherId,
             };
         }
 
