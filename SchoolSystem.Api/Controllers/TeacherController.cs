@@ -33,29 +33,29 @@
         }
 
         [HttpPost(ApiEndpoints.Users.Teachers.Create)]
-        public async Task<IActionResult> Create(CreateTeacherRequest request)
+        public async Task<IActionResult> Create(CreateTeacherRequest request, CancellationToken cancellationToken)
         {
             var teacher = request.MapToEntity();
-            await _teacherService.CreateAsync(teacher);
+            await _teacherService.CreateAsync(teacher, cancellationToken);
             var response = teacher.MapToRespone();
             return CreatedAtAction(nameof(Get), new { id = response.Id }, response);
         }
 
         [HttpPut(ApiEndpoints.Users.Teachers.Update)]
         public async Task<IActionResult> Update([FromRoute] int id, UpdateTeacherRequest  
-            request)
+            request, CancellationToken cancellationToken)
         {
             var teacher = request.MapToEntity(id);
-            await _teacherService.UpdateAsync(teacher);
+            await _teacherService.UpdateAsync(teacher, cancellationToken);
             if (teacher is null) return NotFound();
             var response = teacher.MapToRespone();
             return Ok(response);
         }
 
         [HttpDelete(ApiEndpoints.Users.Teachers.Delete)]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken cancellationToken)
         {
-            var deleted = await _teacherService.DeleteAsync(id);
+            var deleted = await _teacherService.DeleteAsync(id, cancellationToken);
             if (deleted is false) return NotFound();
             return Ok();
         }

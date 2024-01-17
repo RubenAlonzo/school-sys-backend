@@ -17,20 +17,20 @@
             _validator = validator;
         }
 
-        public async Task CreateAsync(StudentEntity student)
+        public async Task CreateAsync(StudentEntity student, CancellationToken cancellationToken = default)
         {
             _validator.ValidateAndThrow(student);
             _unitOfWork.Students.Add(student);
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
         {
             var student = _unitOfWork.Students.FirstOrDefault(x => x.Id == id);
             if (student is null) return false;
             _unitOfWork.Students.Remove(student);
 
-            return (await _unitOfWork.SaveChangesAsync()) > 0;
+            return (await _unitOfWork.SaveChangesAsync(cancellationToken)) > 0;
         }
 
         public IEnumerable<StudentEntity> GetAll()
@@ -43,14 +43,14 @@
             return _unitOfWork.Students.FirstOrDefault(x => x.Id == id);
         }
 
-        public async Task<StudentEntity?> UpdateAsync(StudentEntity student)
+        public async Task<StudentEntity?> UpdateAsync(StudentEntity student, CancellationToken cancellationToken = default)
         {
             _validator.ValidateAndThrow(student);
             var currentStudent = _unitOfWork.Students.FirstOrDefault(x => x.Id == student.Id);
             if (currentStudent is null) return null;
             _unitOfWork.Students.Remove(currentStudent);
             _unitOfWork.Students.Add(student);
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
             return student;
         }
     }

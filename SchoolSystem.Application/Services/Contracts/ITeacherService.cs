@@ -6,10 +6,10 @@
 
     public interface ITeacherService
     {
-        Task CreateAsync(TeacherEntity teacher);
-        Task<bool> DeleteAsync(int id);
+        Task CreateAsync(TeacherEntity teacher, CancellationToken cancellationToken = default);
+        Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default);
         IEnumerable<TeacherEntity> GetAll();
         TeacherEntity? GetById(int id);
-        Task<TeacherEntity?> UpdateAsync(TeacherEntity teacher);
+        Task<TeacherEntity?> UpdateAsync(TeacherEntity teacher, CancellationToken cancellationToken = default);
     }
 }

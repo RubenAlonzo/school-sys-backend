@@ -33,10 +33,10 @@
         }
 
         [HttpPost(ApiEndpoints.Schedule.Create)]
-        public async Task<IActionResult> Create(CreateScheduleRequest request)
+        public async Task<IActionResult> Create(CreateScheduleRequest request, CancellationToken cancellationToken)
         {
             var schedule = request.MapToEntity();
-            await _scheduleService.CreateAsync(schedule);
+            await _scheduleService.CreateAsync(schedule, cancellationToken);
             var response = schedule.MapToResponse();
             return CreatedAtAction(nameof(Get), new { id = schedule.Id }, response);
         }
@@ -44,19 +44,19 @@
 
 
         [HttpPut(ApiEndpoints.Schedule.Update)]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateScheduleRequest request)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateScheduleRequest request, CancellationToken cancellationToken)
         {
             var schedude = request.MapToEntity(id);
-            var updatedSchedule = await _scheduleService.UpdateAsync(schedude);
+            var updatedSchedule = await _scheduleService.UpdateAsync(schedude, cancellationToken);
             if (updatedSchedule is null) return NotFound();
             var response = updatedSchedule.MapToResponse();
             return Ok(response);
         }
 
         [HttpDelete(ApiEndpoints.Schedule.Delete)]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            var deleted = await _scheduleService.DeleteAsync(id);
+            var deleted = await _scheduleService.DeleteAsync(id, cancellationToken);
             if (deleted is false) return NotFound();
             return Ok();
         }

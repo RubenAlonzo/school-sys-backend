@@ -26,9 +26,9 @@
             return _context.SaveChanges();
         }
 
-        public Task<int> SaveChangesAsync()
+        public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            return _context.SaveChangesAsync();
+            return _context.SaveChangesAsync(cancellationToken);
         }
 
         public void Dispose()

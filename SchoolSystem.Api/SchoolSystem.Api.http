@@ -21,7 +21,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "Capacity": -4
+    "Capacity": 12
     ,
     "Location": "FR01"
 }

@@ -36,28 +36,28 @@
         }
 
         [HttpPost(ApiEndpoints.Rooms.Create)]
-        public async Task<IActionResult> Create([FromBody] CreateRoomRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateRoomRequest request, CancellationToken cancellationToken)
         {
             var room = request.MapToEntity();
-            await _roomService.CreateAsync(room);
+            await _roomService.CreateAsync(room, cancellationToken);
             var response = room.MapToResponse();
             return CreatedAtAction(nameof(Get), new { idOrName = room.Id }, response);
         }
 
         [HttpPut(ApiEndpoints.Rooms.Update)]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateRoomRequest request)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateRoomRequest request, CancellationToken cancellationToken)
         {
             var room = request.MapToEntity(id);
-            var updatedMovie = await _roomService.UpdateAsync(room);
+            var updatedMovie = await _roomService.UpdateAsync(room, cancellationToken);
             if (updatedMovie is null) return NotFound();
             var response = room.MapToResponse();
             return Ok(response);
         }
 
         [HttpDelete(ApiEndpoints.Rooms.Delete)]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            var deleted = await _roomService.DeleteAsync(id);
+            var deleted = await _roomService.DeleteAsync(id, cancellationToken);
             if (deleted is false) return NotFound();
             return Ok();
         }

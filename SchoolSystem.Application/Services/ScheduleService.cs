@@ -18,19 +18,19 @@
             _validator = validator;
         }
 
-        public async Task CreateAsync(ScheduleEntity schedule)
+        public async Task CreateAsync(ScheduleEntity schedule, CancellationToken cancellationToken = default)
         {
             _validator.ValidateAndThrow(schedule);
             _unitOfWork.Schedules.Add(schedule);
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
         {
             var schedule = _unitOfWork.Schedules.FirstOrDefault(x => x.Id == id);
             if (schedule is null) return false;
             _unitOfWork.Schedules.Remove(schedule);
-            return (await _unitOfWork.SaveChangesAsync()) > 0;
+            return (await _unitOfWork.SaveChangesAsync(cancellationToken)) > 0;
         }
 
         public IEnumerable<ScheduleEntity> GetAll()
@@ -44,14 +44,14 @@
             return schedule;
         }
 
-        public async Task<ScheduleEntity?> UpdateAsync(ScheduleEntity schedule)
+        public async Task<ScheduleEntity?> UpdateAsync(ScheduleEntity schedule, CancellationToken cancellationToken = default)
         {
             _validator.ValidateAndThrow(schedule);
             var currentSchedule = _unitOfWork.Schedules.FirstOrDefault(x => x.Id == schedule.Id);
             if (currentSchedule is null) return null;
             _unitOfWork.Schedules.Remove(currentSchedule);
             _unitOfWork.Schedules.Add(schedule);
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
             return schedule;
         }
     }

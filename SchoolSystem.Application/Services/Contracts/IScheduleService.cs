@@ -6,10 +6,10 @@
 
     public interface IScheduleService
     {
-        Task CreateAsync(ScheduleEntity schedule);
-        Task<bool> DeleteAsync(int id);
+        Task CreateAsync(ScheduleEntity schedule, CancellationToken cancellationToken = default);
+        Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default);
         IEnumerable<ScheduleEntity> GetAll();
         ScheduleEntity? GetById(int id);
-        Task<ScheduleEntity?> UpdateAsync(ScheduleEntity schedule);
+        Task<ScheduleEntity?> UpdateAsync(ScheduleEntity schedule, CancellationToken cancellationToken = default);
     }
 }
