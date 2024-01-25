@@ -1,9 +1,11 @@
 ﻿namespace SchoolSystem.Persistence
 {
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using SchoolSystem.Domain.Entities;
 
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : IdentityDbContext<UserEntity, IdentityRole<int>, int>
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {

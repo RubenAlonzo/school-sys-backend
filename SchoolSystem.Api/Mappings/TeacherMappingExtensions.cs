@@ -19,7 +19,6 @@
                 Id = teacher.Id,
                 FirstName = teacher.FirstName,
                 LastName = teacher.LastName,
-                Email = teacher.Email,
                 Subject = teacher.Subject,
                 Expertise = teacher.Expertise,
             };
@@ -32,7 +31,6 @@
                 Id = response.Id,
                 FirstName = response.FirstName,
                 LastName = response.LastName,
-                Email = response.Email,
                 Subject = response.Subject,
                 Expertise = response.Expertise,
             };
@@ -45,7 +43,6 @@
                 Address = request.Address,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Email = request.Email,
                 Subject = request.Subject,
                 Expertise = request.Expertise,
             };
@@ -59,7 +56,6 @@
                 Address = request.Address,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Email = request.Email,
                 Subject = request.Subject,
                 Expertise = request.Expertise,
             };

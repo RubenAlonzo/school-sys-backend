@@ -7,9 +7,6 @@
     {
         public TeacherValidator()
         {
-            RuleFor(x => x.Email)
-                .EmailAddress();
-
             RuleFor(x => x.FirstName)
                 .NotEmpty();
 

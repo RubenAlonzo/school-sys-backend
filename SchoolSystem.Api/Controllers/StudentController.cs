@@ -1,11 +1,13 @@
 ﻿namespace SchoolSystem.Api.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SchoolSystem.Api.Mappings;
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Contracts.Requests.Students;
 
     [ApiController]
+    [Authorize]
     public class StudentController : ControllerBase
     {
         private readonly IStudentService _userService;
@@ -35,6 +37,7 @@
         [HttpPost(ApiEndpoints.Users.Students.Create)]
         public async Task<IActionResult> Create(CreateStudentRequest request, CancellationToken cancellationToken)
         {
+            var x = User.Claims;
             var student = request.MapToEntity();
             await _userService.CreateAsync(student, cancellationToken);
             var response = student.MapToRespone();
