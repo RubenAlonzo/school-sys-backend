@@ -1,9 +1,7 @@
 ﻿namespace SchoolSystem.Persistence.Repositories
 {
-    using Microsoft.EntityFrameworkCore;
     using SchoolSystem.Persistence.Repositories.Contracts;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
 
@@ -21,27 +19,27 @@
             _context.Set<T>().Add(entity);
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public void AddRange(IQueryable<T> entities)
         {
             _context.Set<T>().AddRange(entities);
         }
 
-        public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
+        public virtual IQueryable<T> Find(Expression<Func<T, bool>> expression)
         {
             return _context.Set<T>().Where(expression);
         }
 
-        public T? FirstOrDefault(Func<T, bool> predicate)
+        public virtual T? FirstOrDefault(Func<T, bool> predicate)
         {
             return _context.Set<T>().FirstOrDefault(predicate);
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
             return _context.Set<T>();
         }
 
-        public T? GetById(int id)
+        public virtual T? GetById(int id)
         {
             return _context.Set<T>().Find(id);
         }
@@ -51,7 +49,7 @@
             _context.Set<T>().Remove(entity);
         }
 
-        public void RemoveRange(IEnumerable<T> entities)
+        public void RemoveRange(IQueryable<T> entities)
         {
             _context.Set<T>().RemoveRange(entities);
         }

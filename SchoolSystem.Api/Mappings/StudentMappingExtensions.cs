@@ -16,6 +16,7 @@
             return new GetStudentResponse 
             { 
                 Address = student.Address,
+                Email = student.User!.Email!,
                 Id = student.Id,
                 FirstName = student.FirstName,
                 LastName = student.LastName,
@@ -55,6 +56,7 @@
                 Birthday= request.Birthday,
                 FatherName = request.FatherName,
                 MotherName = request.MotherName,
+                User = new UserEntity() { Email = request.Email, UserName = request.Email },
             };
         }
 
@@ -69,6 +71,7 @@
                 Birthday= request.Birthday,
                 FatherName = request.FatherName,
                 MotherName = request.MotherName,
+                User = new UserEntity() { Email = request.Email, UserName = request.Email },
             };
         }
     }

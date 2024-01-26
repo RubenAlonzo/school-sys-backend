@@ -9,6 +9,7 @@
         public IScheduleRepository Schedules { get; }
         public IStudentRepository Students { get; }
         public ITeacherRepository Teachers { get; }
+        public IUserRepository Users { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         int SaveChanges();

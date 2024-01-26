@@ -12,6 +12,12 @@
                 .LessThan(DateTime.UtcNow.AddYears(-2))
                 .WithMessage("Date must be at least 2 years old");
 
+            RuleFor(x => x.User)
+                .NotNull();
+            
+            RuleFor(x => x.User!.Email)
+                .EmailAddress();
+
             RuleFor(x => x.FirstName)
                 .NotEmpty();
 

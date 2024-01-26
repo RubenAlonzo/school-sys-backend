@@ -37,7 +37,6 @@
         [HttpPost(ApiEndpoints.Users.Students.Create)]
         public async Task<IActionResult> Create(CreateStudentRequest request, CancellationToken cancellationToken)
         {
-            var x = User.Claims;
             var student = request.MapToEntity();
             await _userService.CreateAsync(student, cancellationToken);
             var response = student.MapToRespone();

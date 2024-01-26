@@ -1,18 +1,17 @@
 ﻿namespace SchoolSystem.Persistence.Repositories.Contracts
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq.Expressions;
 
     public interface IGenericRepository<T> where T : class
     {
         T? GetById(int id);
-        IEnumerable<T> GetAll();
-        IEnumerable<T> Find(Expression<Func<T, bool>> expression);
+        IQueryable<T> GetAll();
+        IQueryable<T> Find(Expression<Func<T, bool>> expression);
         T? FirstOrDefault(Func<T, bool> predicate);
         void Add(T entity);
-        void AddRange(IEnumerable<T> entities);
+        void AddRange(IQueryable<T> entities);
         void Remove(T entity);
-        void RemoveRange(IEnumerable<T> entities);
+        void RemoveRange(IQueryable<T> entities);
     }
 }

@@ -11,6 +11,7 @@
         public IScheduleRepository Schedules { get; }
         public IStudentRepository Students { get; }
         public ITeacherRepository Teachers { get; }
+        public IUserRepository Users { get; }
 
         public UnitOfWork(ApplicationContext context)
         {
@@ -19,6 +20,7 @@
             Schedules = new ScheduleRepository(context);
             Students = new StudentRepository(context);
             Teachers = new TeacherRepository(context);
+            Users = new UserRepository(context);
         }
 
         public int SaveChanges()
