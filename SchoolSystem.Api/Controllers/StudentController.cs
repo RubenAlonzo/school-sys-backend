@@ -6,8 +6,8 @@
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Contracts.Requests.Students;
 
-    [ApiController]
     [Authorize]
+    [ApiController]
     public class StudentController : ControllerBase
     {
         private readonly IStudentService _userService;

@@ -15,6 +15,12 @@
 
             RuleFor(x => x.Address)
                 .NotEmpty();
+            
+            RuleFor(x => x.User)
+                .NotNull();
+
+            RuleFor(x => x.User!.Email)
+                .EmailAddress();
         }
     }
 }

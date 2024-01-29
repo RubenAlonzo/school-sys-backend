@@ -17,6 +17,7 @@
             {
                 Address = teacher.Address,
                 Id = teacher.Id,
+                Email = teacher.User!.Email!,
                 FirstName = teacher.FirstName,
                 LastName = teacher.LastName,
                 Subject = teacher.Subject,
@@ -41,6 +42,7 @@
             return new TeacherEntity
             {
                 Address = request.Address,
+                User = new UserEntity() { Email = request.Email, UserName = request.Email },
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Subject = request.Subject,
@@ -53,6 +55,7 @@
             return new TeacherEntity
             {
                 Id = id,
+                User = new UserEntity() { Email = request.Email, UserName = request.Email },
                 Address = request.Address,
                 FirstName = request.FirstName,
                 LastName = request.LastName,

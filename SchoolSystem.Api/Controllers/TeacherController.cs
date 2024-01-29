@@ -1,10 +1,12 @@
 ﻿namespace SchoolSystem.Api.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SchoolSystem.Api.Mappings;
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Contracts.Requests.Teachers;
 
+    [Authorize]
     [ApiController]
     public class TeacherController : ControllerBase
     {
