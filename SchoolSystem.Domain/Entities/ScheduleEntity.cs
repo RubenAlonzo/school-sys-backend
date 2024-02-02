@@ -13,6 +13,7 @@
         public RoomEntity? Room { get; set; }
         public int TeacherId { get; set; }
         public TeacherEntity? Teacher { get; set; }
-        public IEnumerable<StudentEntity> Students { get; set; } = Enumerable.Empty<StudentEntity>();
+        public ICollection<StudentEntity>? Students { get; set; }
+
     }
 }

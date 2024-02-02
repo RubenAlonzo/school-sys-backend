@@ -36,7 +36,7 @@
         public async Task<IActionResult> Create(CreateScheduleRequest request, CancellationToken cancellationToken)
         {
             var schedule = request.MapToEntity();
-            await _scheduleService.CreateAsync(schedule, cancellationToken);
+            await _scheduleService.CreateAsync(schedule, request.StudentIds, cancellationToken);
             var response = schedule.MapToResponse();
             return CreatedAtAction(nameof(Get), new { id = schedule.Id }, response);
         }
@@ -47,7 +47,7 @@
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateScheduleRequest request, CancellationToken cancellationToken)
         {
             var schedude = request.MapToEntity(id);
-            var updatedSchedule = await _scheduleService.UpdateAsync(schedude, cancellationToken);
+            var updatedSchedule = await _scheduleService.UpdateAsync(schedude, request.StudentIds, cancellationToken);
             if (updatedSchedule is null) return NotFound();
             var response = updatedSchedule.MapToResponse();
             return Ok(response);

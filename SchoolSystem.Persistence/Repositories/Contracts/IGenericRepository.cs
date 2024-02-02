@@ -7,7 +7,7 @@
     {
         T? GetById(int id);
         IQueryable<T> GetAll();
-        IQueryable<T> Find(Expression<Func<T, bool>> expression);
+        IQueryable<T> Where(Expression<Func<T, bool>> expression);
         T? FirstOrDefault(Func<T, bool> predicate);
         void Add(T entity);
         void AddRange(IQueryable<T> entities);

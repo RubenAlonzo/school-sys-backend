@@ -17,7 +17,7 @@
                 .IncludeMultiple(x => x.User!);
         }
 
-        public override IQueryable<StudentEntity> Find(Expression<Func<StudentEntity, bool>> expression)
+        public override IQueryable<StudentEntity> Where(Expression<Func<StudentEntity, bool>> expression)
         {
             return _context.Set<StudentEntity>()
                 .IncludeMultiple(x => x.User!)

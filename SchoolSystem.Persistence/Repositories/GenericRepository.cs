@@ -24,7 +24,7 @@
             _context.Set<T>().AddRange(entities);
         }
 
-        public virtual IQueryable<T> Find(Expression<Func<T, bool>> expression)
+        public virtual IQueryable<T> Where(Expression<Func<T, bool>> expression)
         {
             return _context.Set<T>().Where(expression);
         }

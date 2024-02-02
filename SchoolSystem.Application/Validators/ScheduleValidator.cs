@@ -63,12 +63,12 @@
 
         private bool ValidateNoOverlap(ScheduleEntity entity)
         {
-            var schedules = _unitOfWork.Schedules.Find(x => x.RoomId == entity.RoomId && x.Day == entity.Day);
+            var schedules = _unitOfWork.Schedules.Where(x => x.RoomId == entity.RoomId && x.Day == entity.Day);
             if (!schedules.Any()) return true;
 
             foreach (var schedule in schedules)
             {
-                var isTimeOverlapped = schedule.StartTime < entity.FinishTime && entity.StartTime < schedule.FinishTime;
+                var isTimeOverlapped = (schedule.StartTime < entity.FinishTime && entity.StartTime < schedule.FinishTime) && schedule.Id != entity.Id;
                 if(isTimeOverlapped) return false;
             }
 

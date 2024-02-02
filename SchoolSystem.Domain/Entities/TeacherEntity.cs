@@ -9,7 +9,7 @@
         public required string LastName { get; set; }
         public required string Address { get; set; }
         public required string Subject { get; set; }
-        public IEnumerable<ScheduleEntity>? Schedule { get; set; }
+        public ICollection<ScheduleEntity>? Schedule { get; set; }
         public string? Expertise { get; set; }
         public int UserId { get; set; }
         public UserEntity? User { get; set; }

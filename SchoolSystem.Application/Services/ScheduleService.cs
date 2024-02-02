@@ -24,6 +24,14 @@
             _unitOfWork.Schedules.Add(schedule);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
+        public async Task CreateAsync(ScheduleEntity schedule, IEnumerable<int> studentIds, CancellationToken cancellationToken = default)
+        {
+            _validator.ValidateAndThrow(schedule);
+            var students = _unitOfWork.Students.Where(x => studentIds.Contains(x.Id));
+            schedule.Students = students.ToList();
+            _unitOfWork.Schedules.Add(schedule);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
+        }
 
         public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
         {
@@ -51,6 +59,18 @@
             if (currentSchedule is null) return null;
             _unitOfWork.Schedules.Remove(currentSchedule);
             _unitOfWork.Schedules.Add(schedule);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            return schedule;
+        }
+
+        public async Task<ScheduleEntity?> UpdateAsync(ScheduleEntity schedule, IEnumerable<int> studentIds, CancellationToken cancellationToken = default)
+        {
+            _validator.ValidateAndThrow(schedule);
+            var currentSchedule = _unitOfWork.Schedules.FirstOrDefault(x => x.Id == schedule.Id);
+            if (currentSchedule is null) return null;
+            var students = _unitOfWork.Students.Where(x => studentIds.Contains(x.Id));
+            schedule.Students = students.ToList(); 
+            currentSchedule = schedule; // If changes schedule students doesnt exists, removes current students. Might be ok
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return schedule;
         }

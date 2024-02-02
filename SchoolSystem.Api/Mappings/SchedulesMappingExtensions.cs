@@ -21,7 +21,7 @@
                 FinishTime = schedule.FinishTime,
                 RoomId = schedule.RoomId,
                 TeacherId = schedule.TeacherId,
-                StudentIds = schedule.Students.Select(x => x.Id),
+                StudentIds = schedule.Students!.Select(x => x.Id),
             };
         }
 
@@ -45,9 +45,8 @@
                 Day = request.Day,
                 StartTime = request.StartTime,
                 FinishTime = request.FinishTime,
-                Room = request.Room.MapToEntity(),
-                Teacher = request.Teacher.MapToEntity(),
-                Students = request.Students.MapToEntity()
+                RoomId = request.RoomId,
+                TeacherId = request.TeacherId,
             };
         }
     }
