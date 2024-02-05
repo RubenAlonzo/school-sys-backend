@@ -1,10 +1,13 @@
 ﻿namespace SchoolSystem.Api.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using SchoolSystem.Api.Auth;
     using SchoolSystem.Api.Mappings;
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Contracts.Requests.Schedules;
 
+    [Authorize]
     [ApiController]
     public class ScheduleController : ControllerBase
     {
@@ -15,6 +18,7 @@
             _scheduleService = scheduleService;
         }
 
+        [Authorize(Roles = $"{AuthConsts.Admin},{AuthConsts.Teacher}")]
         [HttpGet(ApiEndpoints.Schedule.GetAll)]
         public IActionResult GetAll()
         {
@@ -32,6 +36,7 @@
             return Ok(response);
         }
 
+        [Authorize(Roles = AuthConsts.Admin)]
         [HttpPost(ApiEndpoints.Schedule.Create)]
         public async Task<IActionResult> Create(CreateScheduleRequest request, CancellationToken cancellationToken)
         {
@@ -43,6 +48,7 @@
 
 
 
+        [Authorize(Roles = AuthConsts.Admin)]
         [HttpPut(ApiEndpoints.Schedule.Update)]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateScheduleRequest request, CancellationToken cancellationToken)
         {
@@ -53,6 +59,7 @@
             return Ok(response);
         }
 
+        [Authorize(Roles = AuthConsts.Admin)]
         [HttpDelete(ApiEndpoints.Schedule.Delete)]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {

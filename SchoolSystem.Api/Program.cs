@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using SchoolSystem.Api.Middlewares;
 using SchoolSystem.Application;
@@ -18,7 +19,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Auth
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(x =>
+{
+    x.DefaultPolicy = new AuthorizationPolicyBuilder()
+                            .RequireAuthenticatedUser()
+                            .Build();
+});
 builder.Services
     .AddIdentityApiEndpoints<UserEntity>()
     .AddEntityFrameworkStores<ApplicationContext>();

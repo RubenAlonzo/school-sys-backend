@@ -2,11 +2,11 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using SchoolSystem.Api.Auth;
     using SchoolSystem.Api.Mappings;
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Contracts.Requests.Students;
 
-    [Authorize]
     [ApiController]
     public class StudentController : ControllerBase
     {
@@ -34,6 +34,7 @@
             return Ok(response);
         }
 
+        [Authorize(Roles = AuthConsts.Admin)]
         [HttpPost(ApiEndpoints.Users.Students.Create)]
         public async Task<IActionResult> Create(CreateStudentRequest request, CancellationToken cancellationToken)
         {
@@ -43,6 +44,7 @@
             return CreatedAtAction(nameof(Get), new { id = response.Id }, response);
         }
 
+        [Authorize(Roles = AuthConsts.Admin)]
         [HttpPut(ApiEndpoints.Users.Students.Update)]
         public async Task<IActionResult> Update([FromRoute] int id, UpdateStudentRequest request, CancellationToken cancellationToken)
         {
@@ -53,6 +55,7 @@
             return Ok(response);
         }
 
+        [Authorize(Roles = AuthConsts.Admin)]
         [HttpDelete(ApiEndpoints.Users.Students.Delete)]
         public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken cancellationToken)
         {
