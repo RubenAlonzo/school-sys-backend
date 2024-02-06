@@ -27,6 +27,7 @@ builder.Services.AddAuthorization(x =>
 });
 builder.Services
     .AddIdentityApiEndpoints<UserEntity>()
+    .AddRoles<IdentityRole<int>>()
     .AddEntityFrameworkStores<ApplicationContext>();
 
 var app = builder.Build();
