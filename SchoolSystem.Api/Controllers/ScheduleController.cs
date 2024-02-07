@@ -7,7 +7,6 @@
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Contracts.Requests.Schedules;
 
-    [Authorize]
     [ApiController]
     public class ScheduleController : ControllerBase
     {

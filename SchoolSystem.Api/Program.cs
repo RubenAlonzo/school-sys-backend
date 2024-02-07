@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen();
 // Auth
 builder.Services.AddAuthorization(x =>
 {
-    x.DefaultPolicy = new AuthorizationPolicyBuilder()
+    x.FallbackPolicy = new AuthorizationPolicyBuilder()
                             .RequireAuthenticatedUser()
                             .Build();
 });

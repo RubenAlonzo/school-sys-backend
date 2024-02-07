@@ -7,7 +7,6 @@
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Contracts.Requests.Teachers;
 
-    [Authorize]
     [ApiController]
     public class TeacherController : ControllerBase
     {
