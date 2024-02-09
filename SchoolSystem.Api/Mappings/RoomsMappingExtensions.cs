@@ -1,5 +1,6 @@
 ﻿namespace SchoolSystem.Api.Mappings
 {
+    using SchoolSystem.Persistence.Options;
     using SchoolSystem.Contracts.Requests.Rooms;
     using SchoolSystem.Contracts.Responses;
     using SchoolSystem.Domain.Entities;
@@ -48,6 +49,15 @@
                 Id = id,
                 Capacity = request.Capacity,
                 Location = request.Location,
+            };
+        }
+
+        internal static GetAllRoomsOption MapToOption(this GetAllRoomsRequest request)
+        {
+            return new()
+            {
+                Capacity = request.Capacity,
+                Location = request.Location
             };
         }
     }

@@ -1,9 +1,10 @@
 ﻿namespace SchoolSystem.Persistence.Repositories.Contracts
 {
     using SchoolSystem.Domain.Entities;
-    using System;
+    using SchoolSystem.Persistence.Options;
 
     public interface IRoomRepository : IGenericRepository<RoomEntity>
     {
+        IQueryable<RoomEntity> GetAll(GetAllRoomsOption options);
     }
 }

@@ -3,6 +3,7 @@
     using FluentValidation;
     using SchoolSystem.Application.Services.Contracts;
     using SchoolSystem.Domain.Entities;
+    using SchoolSystem.Persistence.Options;
     using SchoolSystem.Persistence.Repositories.Contracts;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -10,17 +11,19 @@
     public class RoomService : IRoomService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly  IValidator<RoomEntity> _validator;
+        private readonly  IValidator<RoomEntity> _roomValidator;
+        private readonly  IValidator<GetAllRoomsOption> _optionsValidator;
 
-        public RoomService(IUnitOfWork unitOfWork, IValidator<RoomEntity> validator)
+        public RoomService(IUnitOfWork unitOfWork, IValidator<RoomEntity> validator, IValidator<GetAllRoomsOption> optionsValidator)
         {
             _unitOfWork = unitOfWork;
-            _validator = validator;
+            _roomValidator = validator;
+            _optionsValidator = optionsValidator;
         }
 
         public async Task CreateAsync(RoomEntity room, CancellationToken cancellationToken = default)
         {
-            _validator.ValidateAndThrow(room);
+            _roomValidator.ValidateAndThrow(room);
             _unitOfWork.Rooms.Add(room);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
@@ -44,14 +47,15 @@
             return _unitOfWork.Rooms.FirstOrDefault(x => x.Name == name);
         }
 
-        public IEnumerable<RoomEntity> GetAll()
+        public IEnumerable<RoomEntity> GetAll(GetAllRoomsOption options)
         {
-            return _unitOfWork.Rooms.GetAll();
+            _optionsValidator.ValidateAndThrow(options);
+            return _unitOfWork.Rooms.GetAll(options);
         }
 
         public async Task<RoomEntity?> UpdateAsync(RoomEntity room, CancellationToken cancellationToken = default)
         {
-            _validator.ValidateAndThrow(room);
+            _roomValidator.ValidateAndThrow(room);
             var currentRoom = _unitOfWork.Rooms.FirstOrDefault(x => x.Id == room.Id);
             if (currentRoom is null) return null;
             _unitOfWork.Rooms.Remove(currentRoom);

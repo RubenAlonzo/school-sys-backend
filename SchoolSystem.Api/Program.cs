@@ -44,7 +44,10 @@ app.UseAuthorization();
 
 app.UseMiddleware<ValidationExceptionMiddleware>();
 
-app.MapGroup("/api/account").MapIdentityApi<UserEntity>();
+app.MapGroup("/api/account")
+    .MapIdentityApi<UserEntity>()
+    .AllowAnonymous();
+
 app.MapControllers();
 
 app.Run();

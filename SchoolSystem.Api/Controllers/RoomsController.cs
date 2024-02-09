@@ -19,9 +19,10 @@
         }
 
         [HttpGet(ApiEndpoints.Rooms.GetAll)]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery] GetAllRoomsRequest request)
         {
-            var rooms = _roomService.GetAll();
+            var options = request.MapToOption();
+            var rooms = _roomService.GetAll(options);
             var response = rooms.MapToResponse();
             return Ok(response);
         }
