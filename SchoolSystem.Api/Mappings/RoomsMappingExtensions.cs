@@ -57,7 +57,10 @@
             return new()
             {
                 Capacity = request.Capacity,
-                Location = request.Location
+                Location = request.Location,
+                SortField = request.SortBy?.Trim('+', '-'),
+                SortOrder = request.SortBy is null ? SortOrder.UnSorted :
+                    request.SortBy.StartsWith('-') ? SortOrder.Descending : SortOrder.Ascending,
             };
         }
     }
