@@ -8,6 +8,8 @@
         public required string? Location { get; init; }
         public required string? SortField { get; init; }
         public required SortOrder? SortOrder { get; init; }
+        public required int Page { get; init; }
+        public required int PageSize { get; init; }
     }
 
     public enum SortOrder

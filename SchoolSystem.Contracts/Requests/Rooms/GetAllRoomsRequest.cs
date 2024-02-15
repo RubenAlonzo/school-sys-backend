@@ -1,6 +1,6 @@
 ﻿namespace SchoolSystem.Contracts.Requests.Rooms
 {
-    public class GetAllRoomsRequest
+    public class GetAllRoomsRequest : PagedRequest
     {
         public required int? Capacity { get; init; }
         public required string? Location { get; init; }

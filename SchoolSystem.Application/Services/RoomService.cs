@@ -63,5 +63,11 @@
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return room;
         }
+
+        public int Count(GetAllRoomsOption options)
+        {
+            _optionsValidator.ValidateAndThrow(options);
+            return _unitOfWork.Rooms.Count(options);
+        }
     }
 }

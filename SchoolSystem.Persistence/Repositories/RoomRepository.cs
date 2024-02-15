@@ -10,16 +10,38 @@
         {
         }
 
-        IQueryable<RoomEntity> IRoomRepository.GetAll(GetAllRoomsOption options)
+        public int Count(GetAllRoomsOption options)
+        {
+            var rooms = ApplyFilters(options);
+            return rooms.Count();
+        }
+
+        public IQueryable<RoomEntity> GetAll(GetAllRoomsOption options)
+        {
+            var rooms = ApplyFilters(options);
+            rooms = ApplySorting(rooms, options);
+            rooms = rooms
+                .Skip((options.Page - 1) * options.PageSize)
+                .Take(options.PageSize);
+
+            return rooms;
+        }
+
+        private IQueryable<RoomEntity> ApplyFilters(GetAllRoomsOption options)
         {
             var rooms = _context.Set<RoomEntity>().AsQueryable();
 
             rooms = options.Capacity.HasValue ? rooms.Where(x => x.Capacity >= options.Capacity) : rooms;
-            rooms = !string.IsNullOrEmpty(options.Location) ? rooms.Where(x => x.Location.Contains(options.Location)) : rooms;
+            rooms = !string.IsNullOrEmpty(options.Location) ? rooms.Where(x => x.Location.ToLower().Contains(options.Location.ToLower())) : rooms;
 
+            return rooms;
+        }
+
+        private IQueryable<RoomEntity> ApplySorting(IQueryable<RoomEntity> rooms, GetAllRoomsOption options)
+        {
             if (options.SortField != null)
             {
-                rooms = options.SortOrder switch
+                return options.SortOrder switch
                 {
                     SortOrder.Ascending when options.SortField == "location" => rooms.OrderBy(x => x.Location),
                     SortOrder.Descending when options.SortField == "location" => rooms.OrderByDescending(x => x.Location),

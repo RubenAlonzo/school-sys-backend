@@ -13,5 +13,6 @@
         RoomEntity? GetByName(string name);
         IEnumerable<RoomEntity> GetAll(GetAllRoomsOption options);
         Task<RoomEntity?> UpdateAsync(RoomEntity room, CancellationToken cancellationToken = default);
+        int Count(GetAllRoomsOption options);
     }
 }

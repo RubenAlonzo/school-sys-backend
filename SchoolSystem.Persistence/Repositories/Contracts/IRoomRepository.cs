@@ -6,5 +6,6 @@
     public interface IRoomRepository : IGenericRepository<RoomEntity>
     {
         IQueryable<RoomEntity> GetAll(GetAllRoomsOption options);
+        int Count(GetAllRoomsOption options);
     }
 }

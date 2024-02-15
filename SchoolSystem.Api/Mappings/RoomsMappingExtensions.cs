@@ -7,14 +7,20 @@
 
     public static class RoomsMappingExtensions
     {
-        internal static IEnumerable<GetRoomResponse> MapToResponse(this IEnumerable<RoomEntity> rooms)
-        {
-            return rooms.Select(MapToResponse);
-        }
-
-        internal static GetRoomResponse MapToResponse(this RoomEntity room)
+        internal static GetRoomResponse MapToResponse(this IEnumerable<RoomEntity> rooms, int page, int pageSize, int count)
         {
             return new GetRoomResponse()
+            {
+                Items = rooms.Select(MapToResponse),
+                Page = page,
+                PageSize = pageSize,
+                Total = count,
+            };
+        }
+
+        internal static RoomResponse MapToResponse(this RoomEntity room)
+        {
+            return new RoomResponse()
             {
                 Id = room.Id,
                 Capacity = room.Capacity,
@@ -23,7 +29,7 @@
             };
         }
         
-        internal static RoomEntity MapToEntity(this GetRoomResponse response)
+        internal static RoomEntity MapToEntity(this RoomResponse response)
         {
             return new RoomEntity()
             {
@@ -61,6 +67,8 @@
                 SortField = request.SortBy?.Trim('+', '-'),
                 SortOrder = request.SortBy is null ? SortOrder.UnSorted :
                     request.SortBy.StartsWith('-') ? SortOrder.Descending : SortOrder.Ascending,
+                Page = request.Page,
+                PageSize = request.PageSize,
             };
         }
     }

@@ -23,7 +23,8 @@
         {
             var options = request.MapToOption();
             var rooms = _roomService.GetAll(options);
-            var response = rooms.MapToResponse();
+            var count = _roomService.Count(options);
+            var response = rooms.MapToResponse(request.Page, request.PageSize, count);
             return Ok(response);
         }
 
